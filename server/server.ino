@@ -1,8 +1,10 @@
-// TODO: create our own IP address
+/* TODOS:
+ *  - Research use of SYSTEM_THREAD(ENABLED) / calling Particle.process() 
+ */
 
 // telnet defaults to port 23
 TCPServer server = TCPServer(23);
-// linked list
+// TODO: Use a linked list here
 TCPClient clients[10];
 
 int state; // 0 or 1

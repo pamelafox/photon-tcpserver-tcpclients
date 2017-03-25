@@ -1,6 +1,8 @@
-// TODO: connect to our own IP address
-
-// EXAMPLE USAGE
+/*
+ * TODOs:
+ * - Determine whether we should use SYSTEM_MODE(MANUAL) and call Particle.process ourself.
+ *    Or use system threaded mode. It eventually conks out, and may be due to WiFi module buffer. 
+ */
 
 TCPClient client;
 
@@ -8,9 +10,8 @@ byte server[] = { 192, 168, 1, 102 };
 
 int led_pin = D7;
 
-void setup()
-{
-
+void setup() {
+  // TODO: Power LED strip instead.
   pinMode( led_pin , OUTPUT ); 
 
   // Make sure your Serial Terminal app is closed before powering your device
@@ -22,21 +23,16 @@ void setup()
 
   Serial.println("connecting...");
 
-  if (client.connect(server, 23))
-  {
+  if (client.connect(server, 23)) {
     Serial.println("connected");
     client.println("can you hear me?");
-  }
-  else
-  {
+  } else {
     Serial.println("connection failed");
   }
 }
 
-void loop()
-{
-  if (client.available())
-  {
+void loop() {
+  if (client.available()) {
     char c = client.read();
     Serial.print(c);
     if ('1' == c) {
@@ -48,8 +44,9 @@ void loop()
     }
   }
 
-  if (!client.connected())
-  {
+  /* TODO: Have it try to re-connect to server in loop()
+     if its no longer connected, as server may start up after client does. */
+  if (!client.connected()) {
     Serial.println();
     Serial.println("disconnecting.");
     client.stop();
